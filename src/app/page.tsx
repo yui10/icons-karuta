@@ -12,6 +12,19 @@ const randomInt = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
+const createIconsUrl = (icon: icons.SimpleIcon, index = -1) => {
+  const urls = [
+    `https://cdn.simpleicons.org/${icon.slug}/black`,
+    `https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/${icon.slug}.svg`,
+    `/api/icons?slug=${icon.slug}`
+  ];
+
+  if (index == -1) {
+    index = randomInt(0, urls.length - 1);
+  }
+  return urls[index];
+}
+
 export default function Home() {
   const [attention, setAttention] = useState<number>(0)
   const [correct, setCorrect] = useState<boolean>(false);
@@ -75,7 +88,7 @@ export default function Home() {
                 onClick={() => iconClick(icon)}
                 component="img"
                 alt=""
-                src={`/api/icons?slug=${icon.slug}`}
+                src={createIconsUrl(icon, 0)}
                 sx={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
               />
             </Grid>
