@@ -1,22 +1,41 @@
 'use client'
 import styles from "./page.module.css";
-import * as icons from 'simple-icons'
+import { IconData } from "simple-icons/sdk";
 import { useEffect, useState } from "react";
 import { Button, Grid, Paper, Typography } from "@mui/material";
-const iconObjectList = Object.values(icons).map((icon) => {
-  return icon;
-});
-
-
 const randomInt = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-const createIconsUrl = (icon: icons.SimpleIcon, index = -1) => {
+let iconSlugList: IconData[];
+const fetchSlugs = async () => {
+  const res = await fetch("/api/icons/slugs");
+  const data = await res.json();
+  return data as IconData[];
+}
+
+
+const parseSlug = (slug: string) => {
+  const REPLACE_MAP: { [key: string]: string } = {
+    ' ': '',
+    '+': 'plus',
+    '.': 'dot',
+    '&': 'and'
+  };
+  const REPLACE_MAP_REGEX = new RegExp(`[${Object.keys(REPLACE_MAP).join('')}]`, 'g');
+  const replace_slug = slug.toLowerCase()
+    .replace(REPLACE_MAP_REGEX, (match) => REPLACE_MAP[match]).normalize('NFD')
+    .replace(/[^a-z0-9]/g, '');
+  const iconKeys = replace_slug.charAt(0).toUpperCase() + replace_slug.slice(1);
+  return iconKeys;
+}
+
+const createIconsUrl = (icon: IconData, index = -1) => {
+  const slug = icon.slug ?? parseSlug(icon.title);
   const urls = [
-    `https://cdn.simpleicons.org/${icon.slug}/black`,
-    `https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/${icon.slug}.svg`,
-    `/api/icons?slug=${icon.slug}`
+    `https://cdn.simpleicons.org/${slug}/black`,
+    `https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/${slug}.svg`,
+    `/api/icons?slug=${slug}`
   ];
 
   if (index == -1) {
@@ -28,14 +47,17 @@ const createIconsUrl = (icon: icons.SimpleIcon, index = -1) => {
 export default function Home() {
   const [attention, setAttention] = useState<number>(0)
   const [correct, setCorrect] = useState<boolean>(false);
-  const [correctIcon, setCorrectIcon] = useState<icons.SimpleIcon>();
-  const [iconList, setIconList] = useState<icons.SimpleIcon[]>([]);
+  const [correctIcon, setCorrectIcon] = useState<IconData>();
+  const [iconList, setIconList] = useState<IconData[]>([]);
   useEffect(() => {
-    onNextClick();
+    (async () => {
+      iconSlugList = await fetchSlugs();
+      onNextClick();
+    })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const iconClick = (icon: icons.SimpleIcon) => {
+  const iconClick = (icon: IconData) => {
     if (correct) {
       return;
     }
@@ -52,11 +74,11 @@ export default function Home() {
 
   const onNextClick = () => {
     setAttention(0);
-    let _iconList: icons.SimpleIcon[] = [];
+    let _iconList: IconData[] = [];
     for (let i = 0; i < 12; i++) {
       /// 重複しないようにする
       while (true) {
-        const _icon = iconObjectList[randomInt(0, iconObjectList.length - 1)];
+        const _icon = iconSlugList[randomInt(0, iconSlugList.length - 1)];
         if (_icon.title == correctIcon?.title) {
           continue;
         }
