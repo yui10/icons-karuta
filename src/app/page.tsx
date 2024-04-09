@@ -3,45 +3,14 @@ import styles from "./page.module.css";
 import { IconData } from "simple-icons/sdk";
 import { useEffect, useState } from "react";
 import { Button, Grid, Paper, Typography } from "@mui/material";
-const randomInt = (min: number, max: number) => {
-  return Math.floor(Math.random() * (max - min + 1) + min);
-}
+import { randomInt } from "@/utils/commonUtil";
+import { createIconsUrl } from "@/utils/iconUtil";
 
 let iconSlugList: IconData[];
 const fetchSlugs = async () => {
   const res = await fetch("/api/icons/slugs");
   const data = await res.json();
   return data as IconData[];
-}
-
-
-const parseSlug = (slug: string) => {
-  const REPLACE_MAP: { [key: string]: string } = {
-    ' ': '',
-    '+': 'plus',
-    '.': 'dot',
-    '&': 'and'
-  };
-  const REPLACE_MAP_REGEX = new RegExp(`[${Object.keys(REPLACE_MAP).join('')}]`, 'g');
-  const replace_slug = slug.toLowerCase()
-    .replace(REPLACE_MAP_REGEX, (match) => REPLACE_MAP[match]).normalize('NFD')
-    .replace(/[^a-z0-9]/g, '');
-  const iconKeys = replace_slug.charAt(0).toUpperCase() + replace_slug.slice(1);
-  return iconKeys;
-}
-
-const createIconsUrl = (icon: IconData, index = -1) => {
-  const slug = icon.slug ?? parseSlug(icon.title);
-  const urls = [
-    `https://cdn.simpleicons.org/${slug}/black`,
-    `https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/${slug}.svg`,
-    `/api/icons?slug=${slug}`
-  ];
-
-  if (index == -1) {
-    index = randomInt(0, urls.length - 1);
-  }
-  return urls[index];
 }
 
 export default function Home() {
@@ -110,7 +79,7 @@ export default function Home() {
                 onClick={() => iconClick(icon)}
                 component="img"
                 alt=""
-                src={createIconsUrl(icon, 0)}
+                src={createIconsUrl(icon, 2)}
                 sx={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
               />
             </Grid>
