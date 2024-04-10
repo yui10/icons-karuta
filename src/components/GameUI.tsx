@@ -5,7 +5,7 @@ import { createIconsUrl } from "@/utils/iconUtil";
 type Props = {
     correctIcon: IconData | undefined;
     iconList: IconData[];
-    onNextGame: () => void;
+    onNextGame: (attention: number) => void;
 }
 
 const GameUI = (props: Props) => {
@@ -32,7 +32,7 @@ const GameUI = (props: Props) => {
 
     const _onNextClick = () => {
         setAttention(0);
-        onNextGame();
+        onNextGame(attention);
         setCorrect(false);
     }
 
