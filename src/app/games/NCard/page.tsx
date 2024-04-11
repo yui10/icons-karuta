@@ -15,6 +15,7 @@ const Random = ({ params, searchParams }: { params: { num: string }, searchParam
     const [iconList, setIconList] = useState<IconData[]>([]);
     const [totalAttention, setTotalAttention] = useState<number>(0);
     const [gameEnd, setGameEnd] = useState<boolean>(false);
+    const [score, setScore] = useState<number>(0);
     let num: number = parseInt(params.num) || parseInt(searchParams.num);
     if (num === undefined || (!numList.includes(num))) {
         num = 12;
@@ -31,12 +32,13 @@ const Random = ({ params, searchParams }: { params: { num: string }, searchParam
 
     const onNextClick = (attention: number = 0) => {
         const _iconList = iconList.filter((icon) => icon.title !== correctIcon?.title);
+        setScore(score + 5 - Math.min(4, attention));
         setIconList(_iconList);
         setCorrectIcon(_iconList[randomInt(0, _iconList.length - 1)]);
         setTotalAttention(totalAttention + attention);
         if (_iconList.length === 0) {
             setGameEnd(true);
-            alert(`Total number of touches: ${totalAttention + attention}`);
+            alert(`Total number of touches: ${totalAttention + attention}\nScore: ${score}`);
         }
     }
 
@@ -48,6 +50,9 @@ const Random = ({ params, searchParams }: { params: { num: string }, searchParam
                 </Typography>
                 <Typography variant="h6" component="h6" >
                     Total number of touches: {totalAttention}
+                </Typography>
+                <Typography variant="h6" component="h6" >
+                    Score: {score}
                 </Typography>
             </Stack>
             <GameUI correctIcon={correctIcon} iconList={iconList} onNextGame={onNextClick} />
