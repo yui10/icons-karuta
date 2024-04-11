@@ -1,46 +1,30 @@
 'use client'
+import { Box, Button, Stack } from "@mui/material";
 import styles from "./page.module.css";
-import { IconData } from "simple-icons/sdk";
-import { useEffect, useState } from "react";
-import { randomInt } from "@/utils/commonUtil";
-import GameUI from "@/components/GameUI";
 
-let iconSlugList: IconData[];
-const fetchSlugs = async () => {
-  const res = await fetch("/api/icons/slugs");
-  const data = await res.json();
-  return data as IconData[];
-}
-
-const randomIcons = (iconList: IconData[], num: number) => {
-  const index_set = new Set<number>();
-  while (index_set.size < num) {
-    index_set.add(randomInt(0, iconList.length - 1));
-  }
-  const _iconList = Array.from(index_set).map(index => iconList[index]);
-  return _iconList;
-}
-
+const numList = [12, 24, 36];
 export default function Home() {
-  const [correctIcon, setCorrectIcon] = useState<IconData>();
-  const [iconList, setIconList] = useState<IconData[]>([]);
-  useEffect(() => {
-    (async () => {
-      iconSlugList = await fetchSlugs();
-      onNextClick();
-    })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const onNextClick = () => {
-    const _iconList = randomIcons(iconSlugList, 12);
-    setIconList(_iconList);
-    setCorrectIcon(_iconList[randomInt(0, _iconList.length - 1)]);
-  }
-
+  const onInfiniteGameClick = () => {
+    window.location.href = "/games/Infinite";
+  };
   return (
     <main className={styles.main}>
-      <GameUI correctIcon={correctIcon} iconList={iconList} onNextGame={onNextClick} />
-    </main>
+      <Stack spacing={2}>
+        <Box border={1} padding={3}>
+          <Button variant="contained" color="primary" onClick={onInfiniteGameClick}>
+            Start Infinite Game
+          </Button>
+        </Box>
+        <Box border={1} padding={3}>
+          <Stack spacing={2} >
+            {numList.map(num => (
+              <Button key={num} variant="contained" color="primary" onClick={() => window.location.href = `/games/NCard?num=${num}`}>
+                Start {num} Cards Game
+              </Button>
+            ))}
+          </Stack>
+        </Box>
+      </Stack>
+    </main >
   );
 }

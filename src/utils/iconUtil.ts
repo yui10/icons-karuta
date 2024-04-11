@@ -22,6 +22,21 @@ export const parseSlug = (slug: string) => {
     return iconKeys;
 }
 
+export const fetchSlugs = async () => {
+    const res = await fetch("/api/icons/slugs");
+    const data = await res.json();
+    return data as IconData[];
+}
+
+export const randomIcons = (iconList: IconData[], num: number) => {
+    const index_set = new Set<number>();
+    while (index_set.size < num) {
+        index_set.add(randomInt(0, iconList.length - 1));
+    }
+    const _iconList = Array.from(index_set).map(index => iconList[index]);
+    return _iconList;
+}
+
 export const createIconsUrl = (icon: IconData, index = -1) => {
     const slug = icon.slug ?? parseSlug(icon.title);
     const urls = [
