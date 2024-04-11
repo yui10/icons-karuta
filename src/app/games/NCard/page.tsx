@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { randomInt } from "@/utils/commonUtil";
 import GameUI from "@/components/GameUI";
 import { fetchSlugs, randomIcons } from "@/utils/iconUtil";
-import { Box, Button, Stack } from "@mui/material";
+import { Box, Button, Stack, Typography } from "@mui/material";
 
 const numList = [12, 24, 36];
 
@@ -29,7 +29,7 @@ const Random = ({ params, searchParams }: { params: { num: string }, searchParam
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const onNextClick = (attention: number) => {
+    const onNextClick = (attention: number = 0) => {
         const _iconList = iconList.filter((icon) => icon.title !== correctIcon?.title);
         setIconList(_iconList);
         setCorrectIcon(_iconList[randomInt(0, _iconList.length - 1)]);
@@ -42,8 +42,14 @@ const Random = ({ params, searchParams }: { params: { num: string }, searchParam
 
     return (
         <main className={styles.main}>
-            <h1>{num} Cards Game</h1>
-            <h2>Total number of touches: {totalAttention}</h2>
+            <Stack spacing={2}>
+                <Typography variant="h4" component="h4" >
+                    {num} Cards Game
+                </Typography>
+                <Typography variant="h6" component="h6" >
+                    Total number of touches: {totalAttention}
+                </Typography>
+            </Stack>
             <GameUI correctIcon={correctIcon} iconList={iconList} onNextGame={onNextClick} />
             {gameEnd &&
                 <Box marginTop={4}>
