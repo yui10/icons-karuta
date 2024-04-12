@@ -1,4 +1,4 @@
-import { getIcon } from '@/utils/icon';
+import { getIcon } from '@/utils/getIconData';
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {

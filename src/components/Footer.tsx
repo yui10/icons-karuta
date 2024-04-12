@@ -11,6 +11,11 @@ const Footer = () => {
                         ©2024 <Link href="https://github.com/yui10">yui10</Link>
                     </Typography>
                 </Box>
+                <Box sx={{ textAlign: 'center' }}>
+                    <Typography variant="caption">
+                        <Link href="/privacy-policy">Privacy Policy</Link>
+                    </Typography>
+                </Box>
             </Container>
         </AppBar>
     )
