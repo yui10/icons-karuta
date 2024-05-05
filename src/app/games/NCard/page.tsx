@@ -6,6 +6,8 @@ import { randomInt } from "@/utils/commonUtil";
 import GameUI from "@/components/GameUI";
 import { fetchSlugs, randomIcons } from "@/utils/iconUtil";
 import { Box, Button, Stack, Typography } from "@mui/material";
+import Image from "next/image";
+import Link from "next/link";
 
 const numList = [12, 24, 36];
 
@@ -61,7 +63,16 @@ const Random = ({ params, searchParams }: { params: { num: string }, searchParam
             <GameUI correctIcon={correctIcon} iconList={iconList} onNextGame={onNextClick} />
             {gameEnd &&
                 <Box marginTop={4}>
-                    <Stack spacing={2}>
+                    {/** SNS share */}
+                    <Stack spacing={2} direction="row">
+                        <Typography variant="h6" component="h6" >
+                            Share your score :
+                        </Typography>
+                        <Link href={`https://x.com/intent/post?text=icons karuta - Play ${num} Cards Game!!%0aTotal number of touches: ${totalAttention}%0aScore: ${score}%0a&url=${window.location.href}`} passHref target="_blank">
+                            <Image src="https://cdn.simpleicons.org/x" alt="x" width={32} height={32} />
+                        </Link>
+                    </Stack>
+                    <Stack spacing={2} direction="row">
                         <Button variant="contained" color="primary" onClick={() => window.location.href = `/games/NCard?num=${num}`}>Restart</Button>
                         <Button variant="contained" color="primary" onClick={() => window.location.href = "/"}>Top Page</Button>
                     </Stack>
