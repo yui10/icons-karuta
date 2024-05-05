@@ -32,13 +32,16 @@ const Random = ({ params, searchParams }: { params: { num: string }, searchParam
 
     const onNextClick = (attention: number = 0) => {
         const _iconList = iconList.filter((icon) => icon.title !== correctIcon?.title);
-        setScore(score + 5 - Math.min(4, attention));
+        const _totalAttention = totalAttention + attention;
+        const _score = score + 5 - Math.min(4, attention);
+        setScore(_score);
+        // setScore(score + 5 - Math.min(5, Math.max(attention - Math.floor(iconList.length / 4), 0)));
         setIconList(_iconList);
         setCorrectIcon(_iconList[randomInt(0, _iconList.length - 1)]);
-        setTotalAttention(totalAttention + attention);
+        setTotalAttention(_totalAttention);
         if (_iconList.length === 0) {
             setGameEnd(true);
-            alert(`Total number of touches: ${totalAttention + attention}\nScore: ${score}`);
+            alert(`Total number of touches: ${_totalAttention}\nScore: ${_score}`);
         }
     }
 
