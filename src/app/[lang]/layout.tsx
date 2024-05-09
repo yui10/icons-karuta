@@ -34,9 +34,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <LanguageProvider initialLanguage={lang} >
           <Header />
+          {children}
+          <Footer />
         </LanguageProvider>
-        {children}
-        <Footer />
         <Analytics />
       </body>
     </html>

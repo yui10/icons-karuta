@@ -1,4 +1,4 @@
 {
     "infinite":"Start Infinite Game",
-    "NCard":"Start {0} Cards Game"
+    "NCard":"Start {{num}} Cards Game"
 }

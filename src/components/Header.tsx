@@ -21,7 +21,7 @@ const Header = () => {
             <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Box sx={{ textAlign: 'center' }}>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        Icons Karuta
+                        {t('translation:app_name')}
                     </Typography>
                 </Box>
                 {/** Language switching menu */}

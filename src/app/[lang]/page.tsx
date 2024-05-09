@@ -2,7 +2,6 @@
 import { Box, Button, Stack } from "@mui/material";
 import styles from "./page.module.css";
 import { useTranslation } from "@/i18n/client";
-import Format from "string-format";
 
 const numList = [12, 24, 36];
 export default function Home({ params }: { params: { lang: string } }) {
@@ -21,7 +20,7 @@ export default function Home({ params }: { params: { lang: string } }) {
           <Stack spacing={2} >
             {numList.map(num => (
               <Button key={num} variant="contained" color="primary" onClick={() => window.location.href = `${lang}/games/NCard?num=${num}`}>
-                {Format(t('home:NCard'), num.toString())}
+                {t('home:NCard', { num: num })}
               </Button>
             ))}
           </Stack>
