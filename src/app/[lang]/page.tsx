@@ -12,14 +12,14 @@ export default function Home({ params }: { params: { lang: string } }) {
     <main className={styles.main}>
       <Stack spacing={2}>
         <Box border={1} padding={3}>
-          <Button variant="contained" color="primary" onClick={() => window.location.href = `${lang}/games/Infinite`}>
+          <Button variant="contained" color="primary" onClick={() => window.location.href = `${lang}/games/infinite`}>
             {t('home:infinite')}
           </Button>
         </Box>
         <Box border={1} padding={3}>
           <Stack spacing={2} >
             {numList.map(num => (
-              <Button key={num} variant="contained" color="primary" onClick={() => window.location.href = `${lang}/games/NCard?num=${num}`}>
+              <Button key={num} variant="contained" color="primary" onClick={() => window.location.href = `${lang}/games/ncard?num=${num}`}>
                 {t('home:NCard', { num: num })}
               </Button>
             ))}
