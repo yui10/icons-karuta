@@ -1,0 +1,14 @@
+{
+  "Yomi-fuda": "Yomi-fuda",
+  "touches": "Number of touches",
+  "total-touches": "Total number of touches",
+  "correct": "Correct!!",
+  "incorrect": "Incorrect!\nCorrect answer is : {0}\nYour answer is : {1}",
+  "next": "Next",
+  "score": "Score",
+  "finish-message": "Total number of touches : {0}\nScore : {1}",
+  "share": "Share your score :",
+  "tweet": "icons karuta - Play {0} Cards Game!!%0aTotal number of touches : {1}%0aScore : {2}%0a",
+  "retry": "Retry",
+  "top-page": "Back to top page"
+}

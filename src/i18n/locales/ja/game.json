@@ -1,0 +1,14 @@
+{
+  "Yomi-fuda": "読み札",
+  "touches": "タッチ回数",
+  "total-touches": "合計タッチ回数",
+  "correct": "正解!!",
+  "incorrect": "不正解！\n正解は : {0}\nあなたの回答 : {1}",
+  "next": "次へ",
+  "score": "スコア",
+  "finish-message": "合計タッチ回数 : {0}\nスコア : {1}",
+  "share": "スコアをシェア : ",
+  "tweet": "icons karuta - Play {0} Cards Game!!%0a合計タッチ回数 : {1}%0aスコア : {2}%0a",
+  "retry": "もう一度",
+  "top-page": "トップページへ戻る"
+}

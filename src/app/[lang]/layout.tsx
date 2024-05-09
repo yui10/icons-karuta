@@ -1,9 +1,11 @@
+import { dir } from 'i18next';
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { Analytics } from '@vercel/analytics/react';
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { GoogleAnalytics } from '@next/third-parties/google';
+import { LanguageProvider } from '@/i18n/client';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,16 +23,20 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  params: { lang }
 }: Readonly<{
   children: React.ReactNode;
+  params: { lang: string };
 }>) {
   return (
-    <html lang="en">
+    <html lang={lang} dir={dir(lang)}>
       <GoogleAnalytics gaId={GA_TAG_ID} />
       <body className={inter.className}>
-        <Header />
-        {children}
-        <Footer />
+        <LanguageProvider initialLanguage={lang} >
+          <Header />
+          {children}
+          <Footer />
+        </LanguageProvider>
         <Analytics />
       </body>
     </html>

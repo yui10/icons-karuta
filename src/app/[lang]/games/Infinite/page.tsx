@@ -6,9 +6,13 @@ import { randomInt } from "@/utils/commonUtil";
 import GameUI from "@/components/GameUI";
 import { Button, Stack, Typography } from "@mui/material";
 import { fetchSlugs, randomIcons } from "@/utils/iconUtil";
+import { useTranslation } from '@/i18n/client';
 
 let iconSlugList: IconData[];
-const Infinite = () => {
+const Infinite = ({ params }: { params: { lang: string } }) => {
+    const lang = params.lang;
+    const { t } = useTranslation(lang);
+
     const [correctIcon, setCorrectIcon] = useState<IconData>();
     const [iconList, setIconList] = useState<IconData[]>([]);
     const [totalAttention, setTotalAttention] = useState<number>(0);
@@ -34,13 +38,13 @@ const Infinite = () => {
                     Infinite Game
                 </Typography>
                 <Typography variant="h6" component="h6" >
-                    Total number of touches: {totalAttention}
+                    {t("game:total-touches")} : {totalAttention}
                 </Typography>
             </Stack>
             <GameUI correctIcon={correctIcon} iconList={iconList} onNextGame={onNextClick} />
             <br />
-            <Button variant="contained" color="primary" onClick={() => window.location.href = "/"}>
-                Top Page
+            <Button variant="contained" color="primary" onClick={() => window.location.href = `/${lang}`}>
+                {t("game:top-page")}
             </Button>
         </main>
     );

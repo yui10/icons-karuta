@@ -2,6 +2,10 @@ import { IconData } from "simple-icons/sdk";
 import { useState } from "react";
 import { Box, Button, Container, Grid, Paper, Stack, Typography } from "@mui/material";
 import { createIconsUrl } from "@/utils/iconUtil";
+
+import { useLanguage, useTranslation } from "@/i18n/client";
+import Format from "string-format";
+
 type Props = {
     correctIcon: IconData | undefined;
     iconList: IconData[];
@@ -9,6 +13,9 @@ type Props = {
 }
 
 const GameUI = (props: Props) => {
+    const { language } = useLanguage();
+    const { t } = useTranslation(language);
+
     const [attention, setAttention] = useState<number>(0);
     const [correct, setCorrect] = useState<boolean>(false);
 
@@ -21,11 +28,11 @@ const GameUI = (props: Props) => {
         }
 
         if (icon?.title == correctIcon?.title) {
-            alert("Correct");
+            alert(t("game:correct"));
             setCorrect(true);
         }
         else {
-            alert(`Incorrect!\nCorrect answer is: ${correctIcon?.title}\nYour answer is: ${icon?.title}`);
+            alert(Format(t("game:incorrect"), correctIcon?.title ?? "", icon?.title));
             setAttention(attention + 1);
         }
     }
@@ -42,14 +49,14 @@ const GameUI = (props: Props) => {
                 <Grid item xs={12} md={4}>
                     <Box border={1} padding={3} flex={1}>
                         <Typography variant="h4" component="h4" >
-                            Yomi-fuda : {correctIcon?.title}
+                            {t("game:Yomi-fuda")} : {correctIcon?.title}
                         </Typography>
                         <Typography variant="h6" component="h6" >
-                            Number of touches: {attention}
+                            {t("game:touches")}: {attention}
                         </Typography>
                         <Box display="flex" justifyContent="center">
                             <Button variant="contained" onClick={_onNextClick} disabled={!correct}>
-                                Next
+                                {t("game:next")}
                             </Button>
                         </Box>
                     </Box>

@@ -8,16 +8,21 @@ import { fetchSlugs, randomIcons } from "@/utils/iconUtil";
 import { Box, Button, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslation } from "@/i18n/client";
+import Format from "string-format";
 
 const numList = [12, 24, 36];
 
 let iconSlugList: IconData[];
-const Random = ({ params, searchParams }: { params: { num: string }, searchParams: { [key: string]: string } }) => {
+const Random = ({ params, searchParams }: { params: { num: string, lang: string }, searchParams: { [key: string]: string } }) => {
     const [correctIcon, setCorrectIcon] = useState<IconData>();
     const [iconList, setIconList] = useState<IconData[]>([]);
     const [totalAttention, setTotalAttention] = useState<number>(0);
     const [gameEnd, setGameEnd] = useState<boolean>(false);
     const [score, setScore] = useState<number>(0);
+
+    const lang = params.lang;
+    const { t } = useTranslation(lang);
     let num: number = parseInt(params.num) || parseInt(searchParams.num);
     if (num === undefined || (!numList.includes(num))) {
         num = 12;
@@ -43,7 +48,7 @@ const Random = ({ params, searchParams }: { params: { num: string }, searchParam
         setTotalAttention(_totalAttention);
         if (_iconList.length === 0) {
             setGameEnd(true);
-            alert(`Total number of touches: ${_totalAttention}\nScore: ${_score}`);
+            alert(Format(t("game:finish-message"), _totalAttention.toString(), _score.toString()));
         }
     }
 
@@ -54,10 +59,10 @@ const Random = ({ params, searchParams }: { params: { num: string }, searchParam
                     {num} Cards Game
                 </Typography>
                 <Typography variant="h6" component="h6" >
-                    Total number of touches: {totalAttention}
+                    {t("game:total-touches")} : {totalAttention}
                 </Typography>
                 <Typography variant="h6" component="h6" >
-                    Score: {score}
+                    {t("game:score")}: {score}
                 </Typography>
             </Stack>
             <GameUI correctIcon={correctIcon} iconList={iconList} onNextGame={onNextClick} />
@@ -66,15 +71,15 @@ const Random = ({ params, searchParams }: { params: { num: string }, searchParam
                     {/** SNS share */}
                     <Stack spacing={2} direction="row">
                         <Typography variant="h6" component="h6" >
-                            Share your score :
+                            {t("game:share")}
                         </Typography>
-                        <Link href={`https://x.com/intent/post?text=icons karuta - Play ${num} Cards Game!!%0aTotal number of touches: ${totalAttention}%0aScore: ${score}%0a&url=${window.location.href}`} passHref target="_blank">
+                        <Link href={`https://x.com/intent/post?text=${Format(t("game:tweet"), num.toString(), totalAttention.toString(), score.toString())}&url=${window.location.href}`} passHref target="_blank">
                             <Image src="https://cdn.simpleicons.org/x" alt="x" width={32} height={32} />
                         </Link>
                     </Stack>
                     <Stack spacing={2} direction="row">
-                        <Button variant="contained" color="primary" onClick={() => window.location.href = `/games/NCard?num=${num}`}>Restart</Button>
-                        <Button variant="contained" color="primary" onClick={() => window.location.href = "/"}>Top Page</Button>
+                        <Button variant="contained" color="primary" onClick={() => window.location.href = `/${lang}/games/NCard?num=${num}`}>{t("game:retry")}</Button>
+                        <Button variant="contained" color="primary" onClick={() => window.location.href = `/${lang}`}>{t("game:top-page")}</Button>
                     </Stack>
                 </Box>
             }
