@@ -8,7 +8,7 @@ import { fetchSlugs, randomIcons } from "@/utils/iconUtil";
 import { Box, Button, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
-import { LanguageProvider, useTranslation } from "@/i18n/client";
+import { useTranslation } from "@/i18n/client";
 import Format from "string-format";
 
 const numList = [12, 24, 36];
@@ -65,9 +65,7 @@ const Random = ({ params, searchParams }: { params: { num: string, lang: string 
                     {t("game:score")}: {score}
                 </Typography>
             </Stack>
-            <LanguageProvider initialLanguage={lang}>
-                <GameUI correctIcon={correctIcon} iconList={iconList} onNextGame={onNextClick} />
-            </LanguageProvider>
+            <GameUI correctIcon={correctIcon} iconList={iconList} onNextGame={onNextClick} />
             {gameEnd &&
                 <Box marginTop={4}>
                     {/** SNS share */}

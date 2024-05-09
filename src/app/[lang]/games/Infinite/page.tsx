@@ -6,7 +6,7 @@ import { randomInt } from "@/utils/commonUtil";
 import GameUI from "@/components/GameUI";
 import { Button, Stack, Typography } from "@mui/material";
 import { fetchSlugs, randomIcons } from "@/utils/iconUtil";
-import { LanguageProvider, useTranslation } from '@/i18n/client';
+import { useTranslation } from '@/i18n/client';
 
 let iconSlugList: IconData[];
 const Infinite = ({ params }: { params: { lang: string } }) => {
@@ -41,9 +41,7 @@ const Infinite = ({ params }: { params: { lang: string } }) => {
                     {t("game:total-touches")} : {totalAttention}
                 </Typography>
             </Stack>
-            <LanguageProvider initialLanguage={lang}>
-                <GameUI correctIcon={correctIcon} iconList={iconList} onNextGame={onNextClick} />
-            </LanguageProvider>
+            <GameUI correctIcon={correctIcon} iconList={iconList} onNextGame={onNextClick} />
             <br />
             <Button variant="contained" color="primary" onClick={() => window.location.href = `/${lang}`}>
                 {t("game:top-page")}
