@@ -78,7 +78,7 @@ const Random = ({ params, searchParams }: { params: { num: string, lang: string 
                         </Link>
                     </Stack>
                     <Stack spacing={2} direction="row">
-                        <Button variant="contained" color="primary" onClick={() => window.location.href = `/${lang}/games/NCard?num=${num}`}>{t("game:retry")}</Button>
+                        <Button variant="contained" color="primary" onClick={() => window.location.href = `/${lang}/games/ncard?num=${num}`}>{t("game:retry")}</Button>
                         <Button variant="contained" color="primary" onClick={() => window.location.href = `/${lang}`}>{t("game:top-page")}</Button>
                     </Stack>
                 </Box>
