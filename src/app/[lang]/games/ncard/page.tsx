@@ -73,7 +73,7 @@ const Random = ({ params, searchParams }: { params: { num: string, lang: string 
                         <Typography variant="h6" component="h6" >
                             {t("game:share")}
                         </Typography>
-                        <Link href={`https://x.com/intent/post?text=${Format(t("game:tweet"), num.toString(), totalAttention.toString(), score.toString())}&url=${window.location.href}`} passHref target="_blank">
+                        <Link href={`https://x.com/intent/post?text=${Format(t("game:tweet"), num.toString(), totalAttention.toString(), score.toString())}&hashtags=icons_karuta&url=${window.location.href}`} passHref target="_blank">
                             <Image src="https://cdn.simpleicons.org/x" alt="x" width={32} height={32} />
                         </Link>
                     </Stack>
