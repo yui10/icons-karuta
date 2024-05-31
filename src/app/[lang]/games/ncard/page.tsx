@@ -54,18 +54,11 @@ const Random = ({ params, searchParams }: { params: { num: string, lang: string 
 
     return (
         <main className={styles.main}>
-            <Stack spacing={2}>
-                <Typography variant="h4" component="h4" >
-                    {num} Cards Game
-                </Typography>
-                <Typography variant="h6" component="h6" >
-                    {t("game:total-touches")} : {totalAttention}
-                </Typography>
-                <Typography variant="h6" component="h6" >
-                    {t("game:score")}: {score}
-                </Typography>
-            </Stack>
-            <GameUI correctIcon={correctIcon} iconList={iconList} onNextGame={onNextClick} />
+            <Typography variant="h4" component="h4" >
+                {num} Cards Game
+            </Typography>
+            <br />
+            <GameUI correctIcon={correctIcon} iconList={iconList} score={score} onNextGame={onNextClick} />
             {gameEnd &&
                 <Box marginTop={4}>
                     {/** SNS share */}

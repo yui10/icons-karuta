@@ -15,7 +15,6 @@ const Infinite = ({ params }: { params: { lang: string } }) => {
 
     const [correctIcon, setCorrectIcon] = useState<IconData>();
     const [iconList, setIconList] = useState<IconData[]>([]);
-    const [totalAttention, setTotalAttention] = useState<number>(0);
     useEffect(() => {
         (async () => {
             iconSlugList = await fetchSlugs();
@@ -28,20 +27,15 @@ const Infinite = ({ params }: { params: { lang: string } }) => {
         const _iconList = randomIcons(iconSlugList, 12);
         setIconList(_iconList);
         setCorrectIcon(_iconList[randomInt(0, _iconList.length - 1)]);
-        setTotalAttention(totalAttention + attention);
     }
 
     return (
         <main className={styles.main}>
-            <Stack spacing={2}>
-                <Typography variant="h4" component="h4" >
-                    Infinite Game
-                </Typography>
-                <Typography variant="h6" component="h6" >
-                    {t("game:total-touches")} : {totalAttention}
-                </Typography>
-            </Stack>
-            <GameUI correctIcon={correctIcon} iconList={iconList} onNextGame={onNextClick} />
+            <Typography variant="h4" component="h4" >
+                Infinite Game
+            </Typography>
+            <br />
+            <GameUI correctIcon={correctIcon} iconList={iconList} score={Infinity} onNextGame={onNextClick} />
             <br />
             <Button variant="contained" color="primary" onClick={() => window.location.href = `/${lang}`}>
                 {t("game:top-page")}
