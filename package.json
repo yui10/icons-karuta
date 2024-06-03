@@ -1,6 +1,6 @@
 {
   "name": "icons-karuta",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -24,7 +24,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-i18next": "^14.1.1",
-    "simple-icons": "^11.14.0",
+    "simple-icons": "^12.1.0",
     "string-format": "^2.0.0"
   },
   "devDependencies": {
