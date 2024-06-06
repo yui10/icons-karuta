@@ -20,6 +20,7 @@ const Random = ({ params, searchParams }: { params: { num: string, lang: string 
     const [totalAttention, setTotalAttention] = useState<number>(0);
     const [gameEnd, setGameEnd] = useState<boolean>(false);
     const [score, setScore] = useState<number>(0);
+    const [isTimerRunning, setIsTimerRunning] = useState<boolean>(true)
 
     const lang = params.lang;
     const { t } = useTranslation(lang);
@@ -47,6 +48,7 @@ const Random = ({ params, searchParams }: { params: { num: string, lang: string 
         setCorrectIcon(_iconList[randomInt(0, _iconList.length - 1)]);
         setTotalAttention(_totalAttention);
         if (_iconList.length === 0) {
+            setIsTimerRunning(false);
             setGameEnd(true);
             alert(Format(t("game:finish-message"), _totalAttention.toString(), _score.toString()));
         }
@@ -54,18 +56,11 @@ const Random = ({ params, searchParams }: { params: { num: string, lang: string 
 
     return (
         <main className={styles.main}>
-            <Stack spacing={2}>
-                <Typography variant="h4" component="h4" >
-                    {num} Cards Game
-                </Typography>
-                <Typography variant="h6" component="h6" >
-                    {t("game:total-touches")} : {totalAttention}
-                </Typography>
-                <Typography variant="h6" component="h6" >
-                    {t("game:score")}: {score}
-                </Typography>
-            </Stack>
-            <GameUI correctIcon={correctIcon} iconList={iconList} onNextGame={onNextClick} />
+            <Typography variant="h4" component="h4" >
+                {num} Cards Game
+            </Typography>
+            <br />
+            <GameUI correctIcon={correctIcon} iconList={iconList} score={score} onNextGame={onNextClick} isTimerRunning={isTimerRunning} setIsTimerRunning={setIsTimerRunning} />
             {gameEnd &&
                 <Box marginTop={4}>
                     {/** SNS share */}
