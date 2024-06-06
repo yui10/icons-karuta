@@ -15,6 +15,7 @@ const Infinite = ({ params }: { params: { lang: string } }) => {
 
     const [correctIcon, setCorrectIcon] = useState<IconData>();
     const [iconList, setIconList] = useState<IconData[]>([]);
+    const [isTimerRunning, setIsTimerRunning] = useState<boolean>(true);
     useEffect(() => {
         (async () => {
             iconSlugList = await fetchSlugs();
@@ -35,7 +36,7 @@ const Infinite = ({ params }: { params: { lang: string } }) => {
                 Infinite Game
             </Typography>
             <br />
-            <GameUI correctIcon={correctIcon} iconList={iconList} score={Infinity} onNextGame={onNextClick} />
+            <GameUI correctIcon={correctIcon} iconList={iconList} score={Infinity} onNextGame={onNextClick} isTimerRunning={isTimerRunning} setIsTimerRunning={setIsTimerRunning} />
             <br />
             <Button variant="contained" color="primary" onClick={() => window.location.href = `/${lang}`}>
                 {t("game:top-page")}

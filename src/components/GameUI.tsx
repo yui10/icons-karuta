@@ -5,12 +5,15 @@ import { createIconsUrl } from "@/utils/iconUtil";
 
 import { useLanguage, useTranslation } from "@/i18n/client";
 import Format from "string-format";
+import StopwatchDisplay from "./StopwatchDisplay";
 
 type Props = {
     correctIcon: IconData | undefined;
     iconList: IconData[];
     score: number;
     onNextGame: (attention: number) => void;
+    isTimerRunning: boolean;
+    setIsTimerRunning: (isRunning: boolean) => void;
 }
 
 const GameUI = (props: Props) => {
@@ -22,7 +25,7 @@ const GameUI = (props: Props) => {
     const [correct, setCorrect] = useState<boolean>(false);
 
 
-    const { correctIcon, iconList, score, onNextGame } = props;
+    const { correctIcon, iconList, score, onNextGame, isTimerRunning, setIsTimerRunning } = props;
 
     const iconClick = (icon: IconData) => {
         if (correct) {
@@ -73,6 +76,9 @@ const GameUI = (props: Props) => {
                             <Typography variant="h6" component="h6">
                                 {t("game:score")}: {score}
                             </Typography>
+                            <Typography variant="h6" component="h6">
+                                <StopwatchDisplay isRunning={isTimerRunning} setIsRunning={setIsTimerRunning} />
+                            </Typography>
                         </Box>
                     </Grid>
                 </Grid>
@@ -89,6 +95,9 @@ const GameUI = (props: Props) => {
                                             src={createIconsUrl(icon, 0)}
                                             sx={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
                                         />
+                                        <Typography variant="body1" component="p" align="center">
+                                            {icon.title}
+                                        </Typography>
                                     </Grid>
                                 );
                             })}
