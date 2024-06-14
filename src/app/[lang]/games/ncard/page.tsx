@@ -1,7 +1,7 @@
 'use client'
 import styles from "../../page.module.css";
 import { useEffect, useState } from "react";
-import GameUI from "@/components/GameUI";
+import GameUI from "@/components/game/GameUI";
 import { Box, Button, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";

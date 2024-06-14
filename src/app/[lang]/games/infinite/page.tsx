@@ -1,7 +1,7 @@
 'use client'
 import styles from "../../page.module.css";
 import { useEffect, useState } from "react";
-import GameUI from "@/components/GameUI";
+import GameUI from "@/components/game/GameUI";
 import { Button, Typography } from "@mui/material";
 import { useTranslation } from '@/i18n/client';
 import useIcons from "@/hooks/useIcons";

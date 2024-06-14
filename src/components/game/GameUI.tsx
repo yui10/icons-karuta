@@ -5,7 +5,7 @@ import { createIconsUrl } from "@/utils/iconUtil";
 
 import { useLanguage, useTranslation } from "@/i18n/client";
 import Format from "string-format";
-import StopwatchDisplay from "./StopwatchDisplay";
+import StopwatchDisplay from "@/components/StopwatchDisplay";
 
 type Props = {
     correctIcon: IconData | undefined;
