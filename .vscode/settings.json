@@ -4,8 +4,8 @@
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "editor.codeActionsOnSave": {
-        "source.fixAll": true,
-        "source.organizeImports": true
+        "source.fixAll": "explicit",
+        "source.organizeImports": "explicit"
     },
     "prettier.configPath": ".prettierrc.json",
     "typescript.tsdk": "node_modules/typescript/lib"
