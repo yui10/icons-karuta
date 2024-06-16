@@ -1,6 +1,6 @@
 import * as simpleIcons from 'simple-icons';
-import { parseSlug } from './iconUtil';
 import { toHeadUpper } from './commonUtil';
+import { parseSlug } from './iconUtil';
 
 export const getIconSlugs = () => {
     return Object.keys(simpleIcons);

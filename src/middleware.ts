@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { availableLanguages, cookieName, defaultLanguage } from '@/i18n/settings';
 import Negotiator from 'negotiator';
-import { defaultLanguage, availableLanguages, cookieName } from '@/i18n/settings';
+import { NextRequest, NextResponse } from 'next/server';
 
 const getNegotiatedLanguage = (
   headers: Negotiator.Headers,
