@@ -1,5 +1,5 @@
-import useStopwatch from "@/hooks/useStopwatch";
-import React, { useEffect } from "react";
+import useStopwatch from '@/hooks/useStopwatch';
+import { useEffect } from 'react';
 type Props = {
     isRunning: boolean;
     setIsRunning: (isRunning: boolean) => void;
@@ -21,7 +21,8 @@ const StopwatchDisplay = (props: Props) => {
 
     return (
         <div>
-            {("0" + Math.floor((time / 60_000) % 60)).slice(-2)}:{("0" + Math.floor((time / 1_000) % 60)).slice(-2)}
+            {('0' + Math.floor((time / 60_000) % 60)).slice(-2)}:
+            {('0' + Math.floor((time / 1_000) % 60)).slice(-2)}
         </div>
     );
 };

@@ -1,11 +1,11 @@
-'use client'
-import styles from "../../page.module.css";
-import { useEffect, useState } from "react";
-import GameUI from "@/components/game/GameUI";
-import { Button, Typography } from "@mui/material";
+'use client';
+import GameUI from '@/components/game/GameUI';
+import useIcons from '@/hooks/useIcons';
+import useIconsService from '@/hooks/useIconsService';
 import { useTranslation } from '@/i18n/client';
-import useIcons from "@/hooks/useIcons";
-import useIconsService from "@/hooks/useIconsService";
+import { Button, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
+import styles from '../../page.module.css';
 
 const Infinite = ({ params }: { params: { lang: string } }) => {
     const lang = params.lang;
@@ -23,21 +23,32 @@ const Infinite = ({ params }: { params: { lang: string } }) => {
 
     const onNextClick = (attention: number = 0) => {
         init(icons, 12);
-    }
+    };
 
     return (
         <main className={styles.main}>
-            <Typography variant="h4" component="h4" >
+            <Typography variant="h4" component="h4">
                 Infinite Game
             </Typography>
             <br />
-            <GameUI correctIcon={correctIcon} iconList={restIconList} score={Infinity} onNextGame={onNextClick} isTimerRunning={isTimerRunning} setIsTimerRunning={setIsTimerRunning} />
+            <GameUI
+                correctIcon={correctIcon}
+                iconList={restIconList}
+                score={Infinity}
+                onNextGame={onNextClick}
+                isTimerRunning={isTimerRunning}
+                setIsTimerRunning={setIsTimerRunning}
+            />
             <br />
-            <Button variant="contained" color="primary" onClick={() => window.location.href = `/${lang}`}>
-                {t("game:top-page")}
+            <Button
+                variant="contained"
+                color="primary"
+                onClick={() => (window.location.href = `/${lang}`)}
+            >
+                {t('game:top-page')}
             </Button>
         </main>
     );
-}
+};
 
 export default Infinite;
