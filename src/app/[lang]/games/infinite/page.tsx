@@ -12,7 +12,7 @@ const Infinite = ({ params }: { params: { lang: string } }) => {
     const { t } = useTranslation(lang);
 
     const { loaded, icons } = useIcons();
-    const { correctIcon, restIconList, init, onNext } = useIconsService();
+    const { correctIcon, restIconList, init } = useIconsService();
     const [isTimerRunning, setIsTimerRunning] = useState<boolean>(true);
     useEffect(() => {
         if (loaded) {
@@ -21,7 +21,7 @@ const Infinite = ({ params }: { params: { lang: string } }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loaded]);
 
-    const onNextClick = (attention: number = 0) => {
+    const onNextClick = () => {
         init(icons, 12);
     };
 
