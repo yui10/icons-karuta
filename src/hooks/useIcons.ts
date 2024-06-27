@@ -1,7 +1,6 @@
 import { fetchSlugs } from "@/utils/iconUtil";
 import { useEffect, useState } from "react";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-expect-error
 import { IconData } from "simple-icons/sdk";
 
 const useIcons = () => {

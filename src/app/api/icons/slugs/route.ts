@@ -1,7 +1,6 @@
 import * as fs from "fs";
 import { NextResponse } from "next/server";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-expect-error
 import { IconData, getIconDataPath } from 'simple-icons/sdk';
 let icons: IconData[] = [];
 const loadIcons = () => {

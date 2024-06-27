@@ -1,5 +1,4 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-expect-error
 import { IconData } from "simple-icons/sdk";
 import { randomInt, toHeadUpper } from "./commonUtil";
 

@@ -2,7 +2,6 @@ import { createIconsUrl } from '@/utils/iconUtil';
 import { Box, Button, Grid, Paper, Typography } from '@mui/material';
 import { useState } from 'react';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-expect-error
 import { IconData } from 'simple-icons/sdk';
 
 import StopwatchDisplay from '@/components/StopwatchDisplay';

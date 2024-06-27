@@ -2,7 +2,6 @@ import { randomInt } from "@/utils/commonUtil";
 import { randomIcons } from "@/utils/iconUtil";
 import { useState } from "react";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-expect-error
 import { IconData } from "simple-icons/sdk";
 
 const useIconsService = () => {
