@@ -1,19 +1,17 @@
 'use client';
-import GameUI from '@/components/GameUI';
+import XShareButton from '@/components/XShareButton';
+import GameUI from '@/components/game/GameUI';
+import useIcons from '@/hooks/useIcons';
+import useIconsService from '@/hooks/useIconsService';
 import { useTranslation } from '@/i18n/client';
-import { randomInt } from '@/utils/commonUtil';
-import { fetchSlugs, randomIcons } from '@/utils/iconUtil';
 import { Box, Button, Stack, Typography } from '@mui/material';
-import Image from 'next/image';
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { IconData } from 'simple-icons/sdk';
 import Format from 'string-format';
 import styles from '../../page.module.css';
 
 const numList = [12, 24, 36];
+type GameState = 'ready' | 'playing' | 'paused' | 'gameover';
 
-let iconSlugList: IconData[];
 const Random = ({
     params,
     searchParams,
@@ -21,12 +19,13 @@ const Random = ({
     params: { num: string; lang: string };
     searchParams: { [key: string]: string };
 }) => {
-    const [correctIcon, setCorrectIcon] = useState<IconData>();
-    const [iconList, setIconList] = useState<IconData[]>([]);
     const [totalAttention, setTotalAttention] = useState<number>(0);
-    const [gameEnd, setGameEnd] = useState<boolean>(false);
+    const [gameState, setGameState] = useState<GameState>('ready');
     const [score, setScore] = useState<number>(0);
     const [isTimerRunning, setIsTimerRunning] = useState<boolean>(true);
+
+    const { loaded, icons } = useIcons();
+    const { correctIcon, restIconList, init, onNext } = useIconsService();
 
     const lang = params.lang;
     const { t } = useTranslation(lang);
@@ -35,30 +34,31 @@ const Random = ({
         num = 12;
     }
     useEffect(() => {
-        (async () => {
-            iconSlugList = await fetchSlugs();
-            const _iconList = randomIcons(iconSlugList, num);
-            setIconList([..._iconList]);
-            setCorrectIcon(_iconList[randomInt(0, _iconList.length - 1)]);
-        })();
+        if (loaded) {
+            init(icons, num);
+            setGameState('playing');
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [loaded]);
 
     const onNextClick = (attention: number = 0) => {
-        const _iconList = iconList.filter((icon) => icon.title !== correctIcon?.title);
         const _totalAttention = totalAttention + attention;
         const _score = score + 5 - Math.min(4, attention);
         setScore(_score);
         // setScore(score + 5 - Math.min(5, Math.max(attention - Math.floor(iconList.length / 4), 0)));
-        setIconList(_iconList);
-        setCorrectIcon(_iconList[randomInt(0, _iconList.length - 1)]);
         setTotalAttention(_totalAttention);
-        if (_iconList.length === 0) {
-            setIsTimerRunning(false);
-            setGameEnd(true);
-            alert(Format(t('game:finish-message'), _totalAttention.toString(), _score.toString()));
-        }
+
+        onNext();
     };
+
+    useEffect(() => {
+        if (restIconList.length === 0 && gameState === 'playing') {
+            setIsTimerRunning(false);
+            setGameState('gameover');
+            alert(Format(t('game:finish-message'), totalAttention.toString(), score.toString()));
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [restIconList.length]);
 
     return (
         <main className={styles.main}>
@@ -68,31 +68,29 @@ const Random = ({
             <br />
             <GameUI
                 correctIcon={correctIcon}
-                iconList={iconList}
+                iconList={restIconList}
                 score={score}
                 onNextGame={onNextClick}
                 isTimerRunning={isTimerRunning}
                 setIsTimerRunning={setIsTimerRunning}
             />
-            {gameEnd && (
+            {gameState === 'gameover' && (
                 <Box marginTop={4}>
                     {/** SNS share */}
                     <Stack spacing={2} direction="row">
                         <Typography variant="h6" component="h6">
                             {t('game:share')}
                         </Typography>
-                        <Link
-                            href={`https://x.com/intent/post?text=${Format(t('game:tweet'), num.toString(), totalAttention.toString(), score.toString())}&hashtags=icons_karuta&url=${window.location.href}`}
-                            passHref
-                            target="_blank"
-                        >
-                            <Image
-                                src="https://cdn.simpleicons.org/x"
-                                alt="x"
-                                width={32}
-                                height={32}
-                            />
-                        </Link>
+                        <XShareButton
+                            message={Format(
+                                t('game:tweet'),
+                                num.toString(),
+                                totalAttention.toString(),
+                                score.toString()
+                            )}
+                            hashtags={'icons_karuta'}
+                            url={window.location.href}
+                        />
                     </Stack>
                     <Stack spacing={2} direction="row">
                         <Button

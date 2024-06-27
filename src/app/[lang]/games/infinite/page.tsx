@@ -1,33 +1,28 @@
 'use client';
-import GameUI from '@/components/GameUI';
+import GameUI from '@/components/game/GameUI';
+import useIcons from '@/hooks/useIcons';
+import useIconsService from '@/hooks/useIconsService';
 import { useTranslation } from '@/i18n/client';
-import { randomInt } from '@/utils/commonUtil';
-import { fetchSlugs, randomIcons } from '@/utils/iconUtil';
 import { Button, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { IconData } from 'simple-icons/sdk';
 import styles from '../../page.module.css';
 
-let iconSlugList: IconData[];
 const Infinite = ({ params }: { params: { lang: string } }) => {
     const lang = params.lang;
     const { t } = useTranslation(lang);
 
-    const [correctIcon, setCorrectIcon] = useState<IconData>();
-    const [iconList, setIconList] = useState<IconData[]>([]);
+    const { loaded, icons } = useIcons();
+    const { correctIcon, restIconList, init } = useIconsService();
     const [isTimerRunning, setIsTimerRunning] = useState<boolean>(true);
     useEffect(() => {
-        (async () => {
-            iconSlugList = await fetchSlugs();
-            onNextClick();
-        })();
+        if (loaded) {
+            init(icons, 12);
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [loaded]);
 
-    const onNextClick = (attention: number = 0) => {
-        const _iconList = randomIcons(iconSlugList, 12);
-        setIconList(_iconList);
-        setCorrectIcon(_iconList[randomInt(0, _iconList.length - 1)]);
+    const onNextClick = () => {
+        init(icons, 12);
     };
 
     return (
@@ -38,7 +33,7 @@ const Infinite = ({ params }: { params: { lang: string } }) => {
             <br />
             <GameUI
                 correctIcon={correctIcon}
-                iconList={iconList}
+                iconList={restIconList}
                 score={Infinity}
                 onNextGame={onNextClick}
                 isTimerRunning={isTimerRunning}

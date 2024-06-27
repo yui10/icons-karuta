@@ -1,10 +1,12 @@
-import { useLanguage, useTranslation } from '@/i18n/client';
 import { createIconsUrl } from '@/utils/iconUtil';
 import { Box, Button, Grid, Paper, Typography } from '@mui/material';
 import { useState } from 'react';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 import { IconData } from 'simple-icons/sdk';
+
+import StopwatchDisplay from '@/components/StopwatchDisplay';
+import { useLanguage, useTranslation } from '@/i18n/client';
 import Format from 'string-format';
-import StopwatchDisplay from './StopwatchDisplay';
 
 type Props = {
     correctIcon: IconData | undefined;
@@ -110,9 +112,9 @@ const GameUI = (props: Props) => {
                                                 alignItems: 'center',
                                             }}
                                         />
-                                        <Typography variant="body1" component="p" align="center">
+                                        {/* <Typography variant="body1" component="p" align="center">
                                             {icon.title}
-                                        </Typography>
+                                        </Typography> */}
                                     </Grid>
                                 );
                             })}
