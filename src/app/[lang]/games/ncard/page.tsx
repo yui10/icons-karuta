@@ -1,11 +1,10 @@
 'use client';
+import XShareButton from '@/components/XShareButton';
 import GameUI from '@/components/game/GameUI';
 import useIcons from '@/hooks/useIcons';
 import useIconsService from '@/hooks/useIconsService';
 import { useTranslation } from '@/i18n/client';
 import { Box, Button, Stack, Typography } from '@mui/material';
-import Image from 'next/image';
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import Format from 'string-format';
 import styles from '../../page.module.css';
@@ -76,18 +75,16 @@ const Random = ({
                         <Typography variant="h6" component="h6">
                             {t('game:share')}
                         </Typography>
-                        <Link
-                            href={`https://x.com/intent/post?text=${Format(t('game:tweet'), num.toString(), totalAttention.toString(), score.toString())}&hashtags=icons_karuta&url=${window.location.href}`}
-                            passHref
-                            target="_blank"
-                        >
-                            <Image
-                                src="https://cdn.simpleicons.org/x"
-                                alt="x"
-                                width={32}
-                                height={32}
-                            />
-                        </Link>
+                        <XShareButton
+                            message={Format(
+                                t('game:tweet'),
+                                num.toString(),
+                                totalAttention.toString(),
+                                score.toString()
+                            )}
+                            hashtags={'icons_karuta'}
+                            url={window.location.href}
+                        />
                     </Stack>
                     <Stack spacing={2} direction="row">
                         <Button
