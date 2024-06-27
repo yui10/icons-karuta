@@ -10,6 +10,7 @@ import Format from 'string-format';
 import styles from '../../page.module.css';
 
 const numList = [12, 24, 36];
+type GameState = 'ready' | 'playing' | 'paused' | 'gameover';
 
 const Random = ({
     params,
@@ -19,7 +20,7 @@ const Random = ({
     searchParams: { [key: string]: string };
 }) => {
     const [totalAttention, setTotalAttention] = useState<number>(0);
-    const [gameEnd, setGameEnd] = useState<boolean>(false);
+    const [gameState, setGameState] = useState<GameState>('ready');
     const [score, setScore] = useState<number>(0);
     const [isTimerRunning, setIsTimerRunning] = useState<boolean>(true);
 
@@ -35,6 +36,7 @@ const Random = ({
     useEffect(() => {
         if (loaded) {
             init(icons, num);
+            setGameState('playing');
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loaded]);
@@ -47,12 +49,16 @@ const Random = ({
         setTotalAttention(_totalAttention);
 
         onNext();
-        if (restIconList.length === 0) {
-            setIsTimerRunning(false);
-            setGameEnd(true);
-            alert(Format(t('game:finish-message'), _totalAttention.toString(), _score.toString()));
-        }
     };
+
+    useEffect(() => {
+        if (restIconList.length === 0 && gameState === 'playing') {
+            setIsTimerRunning(false);
+            setGameState('gameover');
+            alert(Format(t('game:finish-message'), totalAttention.toString(), score.toString()));
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [restIconList.length]);
 
     return (
         <main className={styles.main}>
@@ -68,7 +74,7 @@ const Random = ({
                 isTimerRunning={isTimerRunning}
                 setIsTimerRunning={setIsTimerRunning}
             />
-            {gameEnd && (
+            {gameState === 'gameover' && (
                 <Box marginTop={4}>
                     {/** SNS share */}
                     <Stack spacing={2} direction="row">

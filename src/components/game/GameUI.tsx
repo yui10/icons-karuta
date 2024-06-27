@@ -112,9 +112,9 @@ const GameUI = (props: Props) => {
                                                 alignItems: 'center',
                                             }}
                                         />
-                                        <Typography variant="body1" component="p" align="center">
+                                        {/* <Typography variant="body1" component="p" align="center">
                                             {icon.title}
-                                        </Typography>
+                                        </Typography> */}
                                     </Grid>
                                 );
                             })}
