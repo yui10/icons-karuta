@@ -1,30 +1,31 @@
 {
   "name": "icons-karuta",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json,css}' && next lint --fix"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
-    "@icons-pack/react-simple-icons": "^9.4.1",
-    "@mui/icons-material": "^5.15.16",
-    "@mui/material": "^5.15.16",
-    "@next/third-parties": "^14.2.0",
-    "@vercel/analytics": "^1.2.2",
-    "i18next": "^23.11.3",
+    "@icons-pack/react-simple-icons": "^9.6.0",
+    "@mui/icons-material": "^5.15.20",
+    "@mui/material": "^5.15.20",
+    "@next/third-parties": "^14.2.4",
+    "@vercel/analytics": "^1.3.1",
+    "i18next": "^23.11.5",
     "i18next-resources-to-backend": "^1.2.1",
     "negotiator": "^0.6.3",
-    "next": "14.1.4",
+    "next": "14.2.4",
     "next-i18next": "^15.3.0",
     "react": "^18",
     "react-dom": "^18",
-    "react-i18next": "^14.1.1",
-    "simple-icons": "^12.1.0",
+    "react-i18next": "^14.1.2",
+    "simple-icons": "^12.4.0",
     "string-format": "^2.0.0"
   },
   "devDependencies": {
@@ -33,8 +34,11 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@types/string-format": "^2.0.3",
+    "@typescript-eslint/eslint-plugin": "^7.14.1",
     "eslint": "^8",
-    "eslint-config-next": "14.1.4",
+    "eslint-config-next": "14.2.4",
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.3.2",
     "typescript": "^5"
   }
 }

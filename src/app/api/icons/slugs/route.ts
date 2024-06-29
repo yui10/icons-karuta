@@ -1,5 +1,6 @@
 import * as fs from "fs";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 import { IconData, getIconDataPath } from 'simple-icons/sdk';
 let icons: IconData[] = [];
 const loadIcons = () => {
@@ -16,7 +17,7 @@ const loadIcons = () => {
 
 loadIcons();
 
-export async function GET(request: NextRequest) {
+export async function GET() {
     const headers = new Headers();
     headers.set('Cache-Control', 's-maxage=31536000, stale-while-revalidate');
 
