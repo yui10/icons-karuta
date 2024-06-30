@@ -1,6 +1,7 @@
+'use client';
 import { createIconsUrl } from '@/utils/iconUtil';
 import { Box, Button, Grid, Paper, Typography } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 import { IconData } from 'simple-icons/sdk';
 
@@ -13,8 +14,6 @@ type Props = {
     iconList: IconData[];
     score: number;
     onNextGame: (attention: number) => void;
-    isTimerRunning: boolean;
-    setIsTimerRunning: (isRunning: boolean) => void;
 };
 
 const GameUI = (props: Props) => {
@@ -24,8 +23,9 @@ const GameUI = (props: Props) => {
     const [attention, setAttention] = useState<number>(0);
     const [totalAttention, setTotalAttention] = useState<number>(0);
     const [correct, setCorrect] = useState<boolean>(false);
+    const [isTimerRunning, setIsTimerRunning] = useState<boolean>(true);
 
-    const { correctIcon, iconList, score, onNextGame, isTimerRunning, setIsTimerRunning } = props;
+    const { correctIcon, iconList, score, onNextGame } = props;
 
     const iconClick = (icon: IconData) => {
         if (correct) {
@@ -47,6 +47,11 @@ const GameUI = (props: Props) => {
         onNextGame(attention);
         setCorrect(false);
     };
+
+    useEffect(() => {
+        const _isTimerRunning = iconList.length >= 0;
+        setIsTimerRunning(_isTimerRunning);
+    }, [iconList.length]);
 
     return (
         <>

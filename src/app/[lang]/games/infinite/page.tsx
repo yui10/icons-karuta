@@ -4,7 +4,7 @@ import useIcons from '@/hooks/useIcons';
 import useIconsService from '@/hooks/useIconsService';
 import { useTranslation } from '@/i18n/client';
 import { Button, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import styles from '../../page.module.css';
 
 const Infinite = ({ params }: { params: { lang: string } }) => {
@@ -13,7 +13,6 @@ const Infinite = ({ params }: { params: { lang: string } }) => {
 
     const { loaded, icons } = useIcons();
     const { correctIcon, restIconList, init } = useIconsService();
-    const [isTimerRunning, setIsTimerRunning] = useState<boolean>(true);
     useEffect(() => {
         if (loaded) {
             init(icons, 12);
@@ -36,8 +35,6 @@ const Infinite = ({ params }: { params: { lang: string } }) => {
                 iconList={restIconList}
                 score={Infinity}
                 onNextGame={onNextClick}
-                isTimerRunning={isTimerRunning}
-                setIsTimerRunning={setIsTimerRunning}
             />
             <br />
             <Button

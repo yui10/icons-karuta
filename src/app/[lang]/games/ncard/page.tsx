@@ -22,7 +22,6 @@ const Random = ({
     const [totalAttention, setTotalAttention] = useState<number>(0);
     const [gameState, setGameState] = useState<GameState>('ready');
     const [score, setScore] = useState<number>(0);
-    const [isTimerRunning, setIsTimerRunning] = useState<boolean>(true);
 
     const { loaded, icons } = useIcons();
     const { correctIcon, restIconList, init, onNext } = useIconsService();
@@ -53,7 +52,6 @@ const Random = ({
 
     useEffect(() => {
         if (restIconList.length === 0 && gameState === 'playing') {
-            setIsTimerRunning(false);
             setGameState('gameover');
             alert(Format(t('game:finish-message'), totalAttention.toString(), score.toString()));
         }
@@ -71,8 +69,6 @@ const Random = ({
                 iconList={restIconList}
                 score={score}
                 onNextGame={onNextClick}
-                isTimerRunning={isTimerRunning}
-                setIsTimerRunning={setIsTimerRunning}
             />
             {gameState === 'gameover' && (
                 <Box marginTop={4}>
