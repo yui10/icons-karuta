@@ -1,6 +1,5 @@
 'use client';
-import { createIconsUrl } from '@/utils/iconUtil';
-import { Box, Button, Grid, Paper, Typography } from '@mui/material';
+import { Box, Button, Grid, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 import { IconData } from 'simple-icons/sdk';
@@ -8,6 +7,7 @@ import { IconData } from 'simple-icons/sdk';
 import StopwatchDisplay from '@/components/StopwatchDisplay';
 import { useLanguage, useTranslation } from '@/i18n/client';
 import Format from 'string-format';
+import IconGrid from './IconGrid';
 
 type Props = {
     correctIcon: IconData | undefined;
@@ -95,41 +95,7 @@ const GameUI = (props: Props) => {
                 </Grid>
                 <Grid item xs={12} md={8}>
                     <Box marginTop={2}>
-                        <Grid
-                            container
-                            spacing={{ xs: 2, md: 3 }}
-                            rowSpacing={{ xs: 1, sm: 2, md: 3 }}
-                            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-                        >
-                            {iconList.map((icon, index) => {
-                                return (
-                                    <Grid item key={index} xs={6} sm={4} md={3} lg={3} xl={2}>
-                                        <Paper
-                                            elevation={3}
-                                            onClick={() => iconClick(icon)}
-                                            component="img"
-                                            alt=""
-                                            src={createIconsUrl(icon, 0)}
-                                            sx={{
-                                                width: '100%',
-                                                display: 'flex',
-                                                justifyContent: 'center',
-                                                alignItems: 'center',
-                                            }}
-                                        />
-                                        {process.env.NODE_ENV === 'development' && (
-                                            <Typography
-                                                variant="body1"
-                                                component="p"
-                                                align="center"
-                                            >
-                                                {icon.title}
-                                            </Typography>
-                                        )}
-                                    </Grid>
-                                );
-                            })}
-                        </Grid>
+                        <IconGrid iconList={iconList} iconClick={iconClick} />
                     </Box>
                 </Grid>
             </Grid>
