@@ -117,9 +117,15 @@ const GameUI = (props: Props) => {
                                                 alignItems: 'center',
                                             }}
                                         />
-                                        {/* <Typography variant="body1" component="p" align="center">
-                                            {icon.title}
-                                        </Typography> */}
+                                        {process.env.NODE_ENV === 'development' && (
+                                            <Typography
+                                                variant="body1"
+                                                component="p"
+                                                align="center"
+                                            >
+                                                {icon.title}
+                                            </Typography>
+                                        )}
                                     </Grid>
                                 );
                             })}
