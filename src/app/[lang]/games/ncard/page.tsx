@@ -1,16 +1,16 @@
 'use client';
 import XShareButton from '@/components/XShareButton';
 import GameUI from '@/components/game/GameUI';
+import useGameService from '@/hooks/useGameService';
 import useIcons from '@/hooks/useIcons';
 import useIconsService from '@/hooks/useIconsService';
 import { useTranslation } from '@/i18n/client';
 import { Box, Button, Stack, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Format from 'string-format';
 import styles from '../../page.module.css';
 
 const numList = [12, 24, 36];
-type GameState = 'ready' | 'playing' | 'paused' | 'gameover';
 
 const Random = ({
     params,
@@ -19,13 +19,13 @@ const Random = ({
     params: { num: string; lang: string };
     searchParams: { [key: string]: string };
 }) => {
-    const [totalAttention, setTotalAttention] = useState<number>(0);
-    const [gameState, setGameState] = useState<GameState>('ready');
-    const [score, setScore] = useState<number>(0);
-    const [isTimerRunning, setIsTimerRunning] = useState<boolean>(true);
-
     const { loaded, icons } = useIcons();
-    const { correctIcon, restIconList, init, onNext } = useIconsService();
+    const { correctIcon, restIconList, initializeIcon, onNext } = useIconsService();
+
+    const { gameData, initializeGame, onIconClick, NextIcon } = useGameService({
+        correctIcon,
+        restIconList,
+    });
 
     const lang = params.lang;
     const { t } = useTranslation(lang);
@@ -35,30 +35,24 @@ const Random = ({
     }
     useEffect(() => {
         if (loaded) {
-            init(icons, num);
-            setGameState('playing');
+            initializeIcon(icons, num);
+            initializeGame();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loaded]);
 
-    const onNextClick = (attention: number = 0) => {
-        const _totalAttention = totalAttention + attention;
-        const _score = score + 5 - Math.min(4, attention);
-        setScore(_score);
-        // setScore(score + 5 - Math.min(5, Math.max(attention - Math.floor(iconList.length / 4), 0)));
-        setTotalAttention(_totalAttention);
-
+    const onNextClick = () => {
         onNext();
+        NextIcon();
     };
 
     useEffect(() => {
-        if (restIconList.length === 0 && gameState === 'playing') {
-            setIsTimerRunning(false);
-            setGameState('gameover');
+        if (gameData.gameState === 'gameover') {
+            const { totalAttention, score } = gameData;
             alert(Format(t('game:finish-message'), totalAttention.toString(), score.toString()));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [restIconList.length]);
+    }, [gameData.gameState]);
 
     return (
         <main className={styles.main}>
@@ -69,12 +63,11 @@ const Random = ({
             <GameUI
                 correctIcon={correctIcon}
                 iconList={restIconList}
-                score={score}
-                onNextGame={onNextClick}
-                isTimerRunning={isTimerRunning}
-                setIsTimerRunning={setIsTimerRunning}
+                gameData={gameData}
+                iconClick={onIconClick}
+                onNext={onNextClick}
             />
-            {gameState === 'gameover' && (
+            {gameData.gameState === 'gameover' && (
                 <Box marginTop={4}>
                     {/** SNS share */}
                     <Stack spacing={2} direction="row">
@@ -85,8 +78,8 @@ const Random = ({
                             message={Format(
                                 t('game:tweet'),
                                 num.toString(),
-                                totalAttention.toString(),
-                                score.toString()
+                                gameData.totalAttention.toString(),
+                                gameData.score.toString()
                             )}
                             hashtags={'icons_karuta'}
                             url={window.location.href}

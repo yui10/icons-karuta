@@ -9,7 +9,7 @@ const useIconsService = () => {
     const [iconList, setIconList] = useState<IconData[]>([]);
     const [restIconList, setRestIconList] = useState<IconData[]>([]);
 
-    const init = (baseIconList: IconData[], size: number) => {
+    const initializeIcon = (baseIconList: IconData[], size: number) => {
         const _iconList = randomIcons(baseIconList, size);
         setIconList([..._iconList]);
         setCorrectIcon(_iconList[randomInt(0, _iconList.length - 1)]);
@@ -23,7 +23,7 @@ const useIconsService = () => {
         setCorrectIcon(_correctIcon);
     }
 
-    return { correctIcon, iconList, restIconList, init, onNext };
+    return { correctIcon, iconList, restIconList, initializeIcon, onNext };
 }
 
 export default useIconsService;
