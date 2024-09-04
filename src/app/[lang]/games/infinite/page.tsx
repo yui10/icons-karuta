@@ -1,10 +1,11 @@
 'use client';
 import GameUI from '@/components/game/GameUI';
+import useGameService from '@/hooks/useGameService';
 import useIcons from '@/hooks/useIcons';
 import useIconsService from '@/hooks/useIconsService';
 import { useTranslation } from '@/i18n/client';
 import { Button, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import styles from '../../page.module.css';
 
 const Infinite = ({ params }: { params: { lang: string } }) => {
@@ -12,17 +13,23 @@ const Infinite = ({ params }: { params: { lang: string } }) => {
     const { t } = useTranslation(lang);
 
     const { loaded, icons } = useIcons();
-    const { correctIcon, restIconList, init } = useIconsService();
-    const [isTimerRunning, setIsTimerRunning] = useState<boolean>(true);
+    const { correctIcon, restIconList, initializeIcon } = useIconsService();
+    const { gameData, initializeGame, onIconClick, NextIcon } = useGameService({
+        correctIcon,
+        restIconList,
+    });
+
     useEffect(() => {
         if (loaded) {
-            init(icons, 12);
+            initializeIcon(icons, 12);
+            initializeGame();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loaded]);
 
     const onNextClick = () => {
-        init(icons, 12);
+        NextIcon();
+        initializeIcon(icons, 12);
     };
 
     return (
@@ -34,10 +41,9 @@ const Infinite = ({ params }: { params: { lang: string } }) => {
             <GameUI
                 correctIcon={correctIcon}
                 iconList={restIconList}
-                score={Infinity}
-                onNextGame={onNextClick}
-                isTimerRunning={isTimerRunning}
-                setIsTimerRunning={setIsTimerRunning}
+                gameData={gameData}
+                iconClick={onIconClick}
+                onNext={onNextClick}
             />
             <br />
             <Button

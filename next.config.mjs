@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    images:{
+    images: {
         dangerouslyAllowSVG: true,
-        remotePatterns:[
+        remotePatterns: [
             {
                 protocol: 'https',
                 hostname: 'cdn.simpleicons.org',

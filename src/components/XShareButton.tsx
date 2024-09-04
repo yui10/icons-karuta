@@ -15,7 +15,13 @@ const XShareButton = (props: XShareButtonProps) => {
             passHref
             target="_blank"
         >
-            <Image src="https://cdn.simpleicons.org/x" alt="x" width={32} height={32} />
+            <Image
+                unoptimized
+                src="https://cdn.simpleicons.org/x/black"
+                alt="x"
+                width={32}
+                height={32}
+            />
         </Link>
     );
 };
