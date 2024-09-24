@@ -30,7 +30,9 @@ export default function RootLayout({
 }>) {
     return (
         <html lang={lang} dir={dir(lang)}>
-            <GoogleAnalytics gaId={GA_TAG_ID} />
+            <head>
+                <GoogleAnalytics gaId={GA_TAG_ID} />
+            </head>
             <body className={inter.className}>
                 <LanguageProvider initialLanguage={lang}>
                     <Header />
