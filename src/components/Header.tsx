@@ -1,5 +1,7 @@
 'use client';
 import { useLanguage, useTranslation } from '@/i18n/client';
+import { availableLanguages, availableLanguagesLabels } from '@/i18n/settings';
+import { escape } from '@/utils/escape';
 import { AppBar, Box, MenuItem, TextField, Toolbar, Typography } from '@mui/material';
 import React from 'react';
 
@@ -10,9 +12,16 @@ const Header = () => {
     const redirect = (e: React.ChangeEvent<HTMLInputElement>) => {
         const lang = e.target.value;
         const path = window.location.pathname;
-        if (path.startsWith(`/${language}`))
-            window.location.href = path.replace(`/${language}`, `/${lang}`);
-        else window.location.href = `/${lang}`;
+        const index = availableLanguages.indexOf(lang);
+        if (index === -1) return;
+
+        const new_lang = `/${availableLanguages[index]}`;
+        let new_path: string = new_lang;
+        if (path.startsWith(`/${language}`)) {
+            new_path = path.replace(`/${language}`, new_lang);
+        }
+
+        window.location.href = escape(new_path);
     };
 
     return (
@@ -35,8 +44,11 @@ const Header = () => {
                         defaultValue={language}
                         onChange={redirect}
                     >
-                        <MenuItem value="ja">日本語</MenuItem>
-                        <MenuItem value="en">English</MenuItem>
+                        {availableLanguagesLabels.map(({ lang, label }) => (
+                            <MenuItem key={lang} value={lang}>
+                                {label}
+                            </MenuItem>
+                        ))}
                     </TextField>
                 </Box>
             </Toolbar>
