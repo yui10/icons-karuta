@@ -1,8 +1,8 @@
 'use client';
 import { useLanguage, useTranslation } from '@/i18n/client';
 import { availableLanguages, availableLanguagesLabels } from '@/i18n/settings';
+import { escape } from '@/utils/escape';
 import { AppBar, Box, MenuItem, TextField, Toolbar, Typography } from '@mui/material';
-import { escape } from 'querystring';
 import React from 'react';
 
 const Header = () => {
