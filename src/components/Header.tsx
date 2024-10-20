@@ -2,6 +2,7 @@
 import { useLanguage, useTranslation } from '@/i18n/client';
 import { availableLanguages, availableLanguagesLabels } from '@/i18n/settings';
 import { AppBar, Box, MenuItem, TextField, Toolbar, Typography } from '@mui/material';
+import { escape } from 'querystring';
 import React from 'react';
 
 const Header = () => {
@@ -20,7 +21,7 @@ const Header = () => {
             new_path = path.replace(`/${language}`, new_lang);
         }
 
-        window.location.href = new_path;
+        window.location.href = escape(new_path);
     };
 
     return (
