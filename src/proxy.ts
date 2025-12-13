@@ -13,7 +13,7 @@ export const config = {
   matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)'],
 };
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   let preferredLanguage: string | undefined;
 
   // If the cookie contains language information.
