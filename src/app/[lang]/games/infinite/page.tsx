@@ -5,10 +5,11 @@ import useIcons from '@/hooks/useIcons';
 import useIconsService from '@/hooks/useIconsService';
 import { useTranslation } from '@/i18n/client';
 import { Button, Typography } from '@mui/material';
-import { useEffect } from 'react';
+import { useEffect, use } from 'react';
 import styles from '../../page.module.css';
 
-const Infinite = ({ params }: { params: { lang: string } }) => {
+const Infinite = (props: { params: Promise<{ lang: string }> }) => {
+    const params = use(props.params);
     const lang = params.lang;
     const { t } = useTranslation(lang);
 

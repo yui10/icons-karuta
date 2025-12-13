@@ -6,7 +6,7 @@ const useStopwatch = () => {
     const [elapsedTime, setElapsedTime] = useState<number>(0);
     const [time, setTime] = useState<number>(0);
 
-    const interval = useRef<ReturnType<typeof setInterval>>();
+    const interval = useRef<ReturnType<typeof setInterval>>(undefined);
     useEffect(() => {
         if (isRunning) {
             interval.current = setInterval(() => {

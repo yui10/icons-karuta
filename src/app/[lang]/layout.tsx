@@ -21,13 +21,22 @@ export const metadata: Metadata = {
     },
 };
 
-export default function RootLayout({
-    children,
-    params: { lang },
-}: Readonly<{
-    children: React.ReactNode;
-    params: { lang: string };
-}>) {
+export default async function RootLayout(
+    props: Readonly<{
+        children: React.ReactNode;
+        params: { lang: string };
+    }>
+) {
+    const params = await props.params;
+
+    const {
+        lang
+    } = params;
+
+    const {
+        children
+    } = props;
+
     return (
         <html lang={lang} dir={dir(lang)}>
             <head>

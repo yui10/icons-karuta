@@ -1,10 +1,12 @@
-'use client';
+'use client';;
+import { use } from "react";
 import { useTranslation } from '@/i18n/client';
 import { Box, Button, Stack } from '@mui/material';
 import styles from './page.module.css';
 
 const numList = [12, 24, 36];
-export default function Home({ params }: { params: { lang: string } }) {
+export default function Home(props: { params: Promise<{ lang: string }> }) {
+    const params = use(props.params);
     const lang = params.lang;
     const { t } = useTranslation(lang);
 

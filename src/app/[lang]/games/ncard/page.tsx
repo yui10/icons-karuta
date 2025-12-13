@@ -6,19 +6,20 @@ import useIcons from '@/hooks/useIcons';
 import useIconsService from '@/hooks/useIconsService';
 import { useTranslation } from '@/i18n/client';
 import { Box, Button, Stack, Typography } from '@mui/material';
-import { useEffect } from 'react';
+import { useEffect, use } from 'react';
 import Format from 'string-format';
 import styles from '../../page.module.css';
 
 const numList = [12, 24, 36];
 
-const Random = ({
-    params,
-    searchParams,
-}: {
-    params: { num: string; lang: string };
-    searchParams: { [key: string]: string };
-}) => {
+const Random = (
+    props: {
+        params: Promise<{ num: string; lang: string }>;
+        searchParams: Promise<{ [key: string]: string }>;
+    }
+) => {
+    const searchParams = use(props.searchParams);
+    const params = use(props.params);
     const { loaded, icons } = useIcons();
     const { correctIcon, restIconList, initializeIcon, onNext } = useIconsService();
 
