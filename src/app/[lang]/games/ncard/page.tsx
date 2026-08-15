@@ -6,19 +6,21 @@ import useIcons from '@/hooks/useIcons';
 import useIconsService from '@/hooks/useIconsService';
 import { useTranslation } from '@/i18n/client';
 import { Box, Button, Stack, Typography } from '@mui/material';
-import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { use, useEffect } from 'react';
 import Format from 'string-format';
 import styles from '../../page.module.css';
 
 const numList = [12, 24, 36];
 
-const Random = ({
-    params,
-    searchParams,
-}: {
-    params: { num: string; lang: string };
-    searchParams: { [key: string]: string };
-}) => {
+const Random = (
+    props: {
+        params: Promise<{ num: string; lang: string }>;
+        searchParams: Promise<{ [key: string]: string }>;
+    }
+) => {
+    const searchParams = use(props.searchParams);
+    const params = use(props.params);
     const { loaded, icons } = useIcons();
     const { correctIcon, restIconList, initializeIcon, onNext } = useIconsService();
 
@@ -29,6 +31,7 @@ const Random = ({
 
     const lang = params.lang;
     const { t } = useTranslation(lang);
+    const router = useRouter();
     let num: number = parseInt(params.num) || parseInt(searchParams.num);
     if (num === undefined || !numList.includes(num)) {
         num = 12;
@@ -89,16 +92,14 @@ const Random = ({
                         <Button
                             variant="contained"
                             color="primary"
-                            onClick={() =>
-                                (window.location.href = `/${lang}/games/ncard?num=${num}`)
-                            }
+                            onClick={() => router.push(`/${lang}/games/ncard?num=${num}`)}
                         >
                             {t('game:retry')}
                         </Button>
                         <Button
                             variant="contained"
                             color="primary"
-                            onClick={() => (window.location.href = `/${lang}`)}
+                            onClick={() => router.push(`/${lang}`)}
                         >
                             {t('game:top-page')}
                         </Button>

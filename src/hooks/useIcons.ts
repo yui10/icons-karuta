@@ -1,17 +1,12 @@
 import { fetchSlugs } from "@/utils/iconUtil";
-import { useEffect, useState } from "react";
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+import { useCallback, useEffect, useState } from "react";
 import { IconData } from "simple-icons/sdk";
 
 const useIcons = () => {
     const [loaded, setLoaded] = useState<boolean>(false);
     const [icons, setIcons] = useState<IconData[]>([]);
 
-    useEffect(() => {
-        loadIcons();
-    }, []);
-
-    const loadIcons = () => {
+    const loadIcons = useCallback(() => {
         (async () => {
             const iconSlugList = await fetchSlugs();
             if (iconSlugList.length > 0) {
@@ -19,7 +14,11 @@ const useIcons = () => {
                 setLoaded(true);
             }
         })();
-    }
+    }, []);
+
+    useEffect(() => {
+        loadIcons();
+    }, [loadIcons]);
 
     return { loaded, icons };
 };
