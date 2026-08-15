@@ -23,7 +23,7 @@ const IconGrid = (props: IconGridProps) => {
                             onClick={() => iconClick(icon)}
                             component="img"
                             alt=""
-                            src={createIconsUrl(icon, 0)}
+                            src={createIconsUrl(icon, 2)}
                             sx={{
                                 width: '100%',
                                 display: 'flex',
