@@ -5,13 +5,15 @@ import useIcons from '@/hooks/useIcons';
 import useIconsService from '@/hooks/useIconsService';
 import { useTranslation } from '@/i18n/client';
 import { Button, Typography } from '@mui/material';
-import { useEffect, use } from 'react';
+import { useRouter } from 'next/navigation';
+import { use, useEffect } from 'react';
 import styles from '../../page.module.css';
 
 const Infinite = (props: { params: Promise<{ lang: string }> }) => {
     const params = use(props.params);
     const lang = params.lang;
     const { t } = useTranslation(lang);
+    const router = useRouter();
 
     const { loaded, icons } = useIcons();
     const { correctIcon, restIconList, initializeIcon } = useIconsService();
@@ -50,7 +52,7 @@ const Infinite = (props: { params: Promise<{ lang: string }> }) => {
             <Button
                 variant="contained"
                 color="primary"
-                onClick={() => (window.location.href = `/${lang}`)}
+                onClick={() => router.push(`/${lang}`)}
             >
                 {t('game:top-page')}
             </Button>

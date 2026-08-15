@@ -1,7 +1,8 @@
-'use client';;
-import { use } from "react";
+'use client';
 import { useTranslation } from '@/i18n/client';
 import { Box, Button, Stack } from '@mui/material';
+import { useRouter } from 'next/navigation';
+import { use } from "react";
 import styles from './page.module.css';
 
 const numList = [12, 24, 36];
@@ -9,6 +10,7 @@ export default function Home(props: { params: Promise<{ lang: string }> }) {
     const params = use(props.params);
     const lang = params.lang;
     const { t } = useTranslation(lang);
+    const router = useRouter();
 
     return (
         <main className={styles.main}>
@@ -17,7 +19,7 @@ export default function Home(props: { params: Promise<{ lang: string }> }) {
                     <Button
                         variant="contained"
                         color="primary"
-                        onClick={() => (window.location.href = `${lang}/games/infinite`)}
+                        onClick={() => router.push(`/${lang}/games/infinite`)}
                     >
                         {t('home:infinite')}
                     </Button>
@@ -29,9 +31,7 @@ export default function Home(props: { params: Promise<{ lang: string }> }) {
                                 key={num}
                                 variant="contained"
                                 color="primary"
-                                onClick={() =>
-                                    (window.location.href = `${lang}/games/ncard?num=${num}`)
-                                }
+                                onClick={() => router.push(`/${lang}/games/ncard?num=${num}`)}
                             >
                                 {t('home:NCard', { num: num })}
                             </Button>

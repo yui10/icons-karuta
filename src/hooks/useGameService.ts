@@ -1,5 +1,5 @@
 import { CorrectType, GameData, GameState } from "@/types/gameState";
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 import { IconData } from "simple-icons/sdk";
 
 type PropsGameService = {
@@ -17,25 +17,16 @@ const useGameService = (props: PropsGameService) => {
     const [correct, setCorrect] = useState<CorrectType>("none");
     const [selectedIcon, setSelectedIcon] = useState<IconData | undefined>(undefined);
 
-    const [gameData, setGameData] = useState<GameData>({
-        gameState,
+    const derivedGameState = restIconList.length === 0 && gameState === "playing" ? "gameover" : gameState;
+
+    const gameData = useMemo<GameData>(() => ({
+        gameState: derivedGameState,
         score,
         attention,
         totalAttention,
         correct,
         selectedIcon,
-    });
-
-    useEffect(() => {
-        setGameData({
-            gameState,
-            score,
-            attention,
-            totalAttention,
-            correct,
-            selectedIcon,
-        });
-    }, [gameState, score, attention, totalAttention, correct, selectedIcon]);
+    }), [derivedGameState, score, attention, totalAttention, correct, selectedIcon]);
 
     const initializeGame = () => {
         setScore(0);
@@ -61,7 +52,6 @@ const useGameService = (props: PropsGameService) => {
         }
     }
 
-
     const NextIcon = () => {
         if (correct !== "correct") {
             return;
@@ -70,13 +60,6 @@ const useGameService = (props: PropsGameService) => {
         setCorrect("none");
         setScore(score + 5 - Math.min(4, attention));
     }
-
-    useEffect(() => {
-        if (restIconList.length === 0 && gameState === "playing") {
-            setGameState("gameover");
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [restIconList.length]);
 
     return {
         gameData,

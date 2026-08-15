@@ -18,13 +18,6 @@ i18next
 export function useTranslation(lang: string) {
     const { t, i18n } = useTranslationOrigin();
 
-    const [activeLanguage, setActiveLanguage] = useState(i18n.resolvedLanguage);
-
-    useEffect(() => {
-        if (activeLanguage === i18n.resolvedLanguage) return;
-        setActiveLanguage(i18n.resolvedLanguage);
-    }, [activeLanguage, i18n.resolvedLanguage]);
-
     useEffect(() => {
         const shouldChangeLanguage = lang && lang !== i18n.resolvedLanguage;
         if (shouldChangeLanguage) {

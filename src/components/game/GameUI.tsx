@@ -1,7 +1,6 @@
 'use client';
 import { Box, Button, Grid, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+import { useEffect } from 'react';
 import { IconData } from 'simple-icons/sdk';
 
 import StopwatchDisplay from '@/components/StopwatchDisplay';
@@ -21,9 +20,9 @@ type Props = {
 const GameUI = (props: Props) => {
     const { language } = useLanguage();
     const { t } = useTranslation(language);
-    const [isTimerRunning, setIsTimerRunning] = useState<boolean>(true);
 
     const { correctIcon, iconList, gameData, onNext, iconClick } = props;
+    const isTimerRunning = gameData.gameState === 'playing';
 
     useEffect(() => {
         if (gameData.gameState !== 'playing') {
@@ -39,11 +38,6 @@ const GameUI = (props: Props) => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [gameData.correct, gameData.attention]);
-
-    useEffect(() => {
-        const _isTimerRunning = gameData.gameState === 'playing';
-        setIsTimerRunning(_isTimerRunning);
-    }, [gameData.gameState]);
 
     return (
         <>
@@ -77,10 +71,7 @@ const GameUI = (props: Props) => {
                                 {t('game:score')}: {gameData.score}
                             </Typography>
                             <Typography variant="h6" component="h6">
-                                <StopwatchDisplay
-                                    isRunning={isTimerRunning}
-                                    setIsRunning={setIsTimerRunning}
-                                />
+                                <StopwatchDisplay isRunning={isTimerRunning} />
                             </Typography>
                         </Box>
                     </Grid>
