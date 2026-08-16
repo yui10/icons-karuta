@@ -17,13 +17,13 @@ const IconGrid = (props: IconGridProps) => {
         >
             {iconList.map((icon, index) => {
                 return (
-                    <Grid item key={index} xs={6} sm={4} md={3} lg={3} xl={2}>
+                    <Grid key={index} size={{xs: 6, sm: 4, md: 3, lg: 3, xl: 2}}>
                         <Paper
                             elevation={3}
                             onClick={() => iconClick(icon)}
                             component="img"
                             alt=""
-                            src={createIconsUrl(icon, 0)}
+                            src={createIconsUrl(icon, 2)}
                             sx={{
                                 width: '100%',
                                 display: 'flex',

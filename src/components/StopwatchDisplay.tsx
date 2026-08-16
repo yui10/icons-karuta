@@ -2,7 +2,6 @@ import useStopwatch from '@/hooks/useStopwatch';
 import { useEffect } from 'react';
 type Props = {
     isRunning: boolean;
-    setIsRunning: (isRunning: boolean) => void;
 };
 
 const StopwatchDisplay = (props: Props) => {
@@ -16,8 +15,7 @@ const StopwatchDisplay = (props: Props) => {
         } else {
             stopTimer();
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isRunning]);
+    }, [isRunning, startTimer, stopTimer]);
 
     return (
         <div>
