@@ -71,7 +71,7 @@ const Random = (
                 onNext={onNextClick}
             />
             {gameData.gameState === 'gameover' && (
-                <Box marginTop={4}>
+                <Box sx={{ marginTop: 4 }}>
                     {/** SNS share */}
                     <Stack spacing={2} direction="row">
                         <Typography variant="h6" component="h6">

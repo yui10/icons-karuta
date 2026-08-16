@@ -44,14 +44,14 @@ const GameUI = (props: Props) => {
             <Grid container spacing={2}>
                 <Grid container size={{xs: 12, md: 4}} spacing={2}>
                     <Grid size={{xs: 6, md: 12}}>
-                        <Box border={1} padding={3} flex={1}>
+                        <Box sx={{ border: 1, padding: 3, flex: 1 }}>
                             <Typography variant="h4" component="h4">
                                 {t('game:Yomi-fuda')} : {correctIcon?.title}
                             </Typography>
                             <Typography variant="h6" component="h6">
                                 {t('game:touches')}: {gameData.attention}
                             </Typography>
-                            <Box display="flex" justifyContent="center">
+                            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                                 <Button
                                     variant="contained"
                                     onClick={onNext}
@@ -63,7 +63,7 @@ const GameUI = (props: Props) => {
                         </Box>
                     </Grid>
                     <Grid size={{xs: 6, md: 12}}>
-                        <Box border={1} padding={3} flex={1}>
+                        <Box sx={{ border: 1, padding: 3, flex: 1 }}>
                             <Typography variant="h4" component="h4">
                                 {t('game:total-touches')} : {gameData.totalAttention}
                             </Typography>
@@ -77,7 +77,7 @@ const GameUI = (props: Props) => {
                     </Grid>
                 </Grid>
                 <Grid size={{xs: 12, md: 8}}>
-                    <Box marginTop={2}>
+                    <Box sx={{ marginTop: 2 }}>
                         <IconGrid iconList={iconList} iconClick={iconClick} />
                     </Box>
                 </Grid>
