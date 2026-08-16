@@ -15,7 +15,7 @@ export default function Home(props: { params: Promise<{ lang: string }> }) {
     return (
         <main className={styles.main}>
             <Stack spacing={2}>
-                <Box border={1} padding={3}>
+                <Box sx={{ border: 1, padding: 3 }}>
                     <Button
                         variant="contained"
                         color="primary"
@@ -24,7 +24,7 @@ export default function Home(props: { params: Promise<{ lang: string }> }) {
                         {t('home:infinite')}
                     </Button>
                 </Box>
-                <Box border={1} padding={3}>
+                <Box sx={{ border: 1, padding: 3 }}>
                     <Stack spacing={2}>
                         {numList.map((num) => (
                             <Button

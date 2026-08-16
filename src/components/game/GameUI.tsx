@@ -42,16 +42,16 @@ const GameUI = (props: Props) => {
     return (
         <>
             <Grid container spacing={2}>
-                <Grid item xs={12} md={4} container spacing={2}>
-                    <Grid item xs={6} md={12}>
-                        <Box border={1} padding={3} flex={1}>
+                <Grid container size={{xs: 12, md: 4}} spacing={2}>
+                    <Grid size={{xs: 6, md: 12}}>
+                        <Box sx={{ border: 1, padding: 3, flex: 1 }}>
                             <Typography variant="h4" component="h4">
                                 {t('game:Yomi-fuda')} : {correctIcon?.title}
                             </Typography>
                             <Typography variant="h6" component="h6">
                                 {t('game:touches')}: {gameData.attention}
                             </Typography>
-                            <Box display="flex" justifyContent="center">
+                            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                                 <Button
                                     variant="contained"
                                     onClick={onNext}
@@ -62,8 +62,8 @@ const GameUI = (props: Props) => {
                             </Box>
                         </Box>
                     </Grid>
-                    <Grid item xs={6} md={12}>
-                        <Box border={1} padding={3} flex={1}>
+                    <Grid size={{xs: 6, md: 12}}>
+                        <Box sx={{ border: 1, padding: 3, flex: 1 }}>
                             <Typography variant="h4" component="h4">
                                 {t('game:total-touches')} : {gameData.totalAttention}
                             </Typography>
@@ -76,13 +76,13 @@ const GameUI = (props: Props) => {
                         </Box>
                     </Grid>
                 </Grid>
-                <Grid item xs={12} md={8}>
-                    <Box marginTop={2}>
+                <Grid size={{xs: 12, md: 8}}>
+                    <Box sx={{ marginTop: 2 }}>
                         <IconGrid iconList={iconList} iconClick={iconClick} />
                     </Box>
                 </Grid>
                 {process.env.NODE_ENV === 'development' && (
-                    <Grid item xs={12}>
+                    <Grid size={{xs: 12}}>
                         <pre>{JSON.stringify(gameData, null, 2)}</pre>
                         <p>correctIcon</p>
                         <pre>{JSON.stringify(correctIcon, null, 2)}</pre>
