@@ -3,11 +3,13 @@ import { useLanguage, useTranslation } from '@/i18n/client';
 import { availableLanguages, availableLanguagesLabels } from '@/i18n/settings';
 import { escape } from '@/utils/escape';
 import { AppBar, Box, MenuItem, TextField, Toolbar, Typography } from '@mui/material';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 
 const Header = () => {
     const { language } = useLanguage();
     const { t } = useTranslation(language);
+    const router = useRouter();
 
     const redirect = (e: React.ChangeEvent<HTMLInputElement>) => {
         const lang = e.target.value;
@@ -21,7 +23,7 @@ const Header = () => {
             new_path = path.replace(`/${language}`, new_lang);
         }
 
-        window.location.href = escape(new_path);
+        router.push(escape(new_path));
     };
 
     return (
